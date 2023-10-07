@@ -24,20 +24,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks
         PhotonNetwork.ConnectUsingSettings();
     }
 
-    public override void OnConnectedToMaster()
-    {
-        Debug.Log("Master Server Baglanti Saglandi");
-        CreateRoom("Oyun Salonu 1");
-    }
-
     public void CreateRoom(string roomName)
     {
         PhotonNetwork.CreateRoom(roomName);
-    }
-
-    public override void OnCreatedRoom()
-    {
-        Debug.Log("Oda Olusturuldu: " + PhotonNetwork.CurrentRoom.Name);
     }
 
     public void joinRoom(string roomName)
