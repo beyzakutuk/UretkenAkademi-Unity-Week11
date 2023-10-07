@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class PlayerController : MonoBehaviourPunCallbacks
 {
@@ -12,6 +13,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [Header("Info")]
     public float moveSpeed;
     public float jumpForce;
+    private int playerScore1 = 0;
+    private int playerScore2 = 0;
 
     [Header("Compenents")]
     public Rigidbody rg;
@@ -19,7 +22,8 @@ public class PlayerController : MonoBehaviourPunCallbacks
     
     void Start()
     {
-        
+        PlayerPrefs.SetInt("gol1", playerScore1);
+        PlayerPrefs.SetInt("gol2", playerScore2);
     }
 
     void Update()
@@ -51,5 +55,16 @@ public class PlayerController : MonoBehaviourPunCallbacks
         {
             rg.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
+    }
+
+    public void Initialize(Player player)
+    {
+        photonPlayer = player;
+        id = player.ActorNumber;
+
+        GameManager.instance.players[id - 1] = this;
+
+        if (!photonView.IsMine)
+            rg.isKinematic = true;
     }
 }
