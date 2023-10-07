@@ -8,6 +8,8 @@ using System.Linq;
 public class GameManager : MonoBehaviourPunCallbacks
 {
     public bool gameEnded = false;
+    public float TimeToWin;
+    public float invictibleDuration;
 
     public string playerPrefabLocation;
 
@@ -22,14 +24,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         instance = this;
     }
 
-
     void Start()
     {
         players = new PlayerController[PhotonNetwork.PlayerList.Length];
+        photonView.RPC("imInGame", RpcTarget.All);
     }
 
     [PunRPC]
-    void ImInGame()
+    void imInGame()
     {
         playersInGame++;
         if (playersInGame == PhotonNetwork.PlayerList.Length)
@@ -43,7 +45,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerScript.photonView.RPC("Initialize", RpcTarget.All, PhotonNetwork.LocalPlayer);
     }
-
+    /*
     public PlayerController GetPlayer(int playerid)
     {
         return players.First(x => x.id == playerid);
@@ -53,7 +55,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         return players.First(x => x.gameObject == playerobj);
     }
-
+    */
     // Update is called once per frame
     void Update()
     {

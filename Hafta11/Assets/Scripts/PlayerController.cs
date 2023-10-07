@@ -13,17 +13,15 @@ public class PlayerController : MonoBehaviourPunCallbacks
     [Header("Info")]
     public float moveSpeed;
     public float jumpForce;
-    private int playerScore1 = 0;
-    private int playerScore2 = 0;
 
     [Header("Compenents")]
     public Rigidbody rg;
+
     public Player photonPlayer;
     
     void Start()
     {
-        PlayerPrefs.SetInt("gol1", playerScore1);
-        PlayerPrefs.SetInt("gol2", playerScore2);
+
     }
 
     void Update()
@@ -57,6 +55,7 @@ public class PlayerController : MonoBehaviourPunCallbacks
         }
     }
 
+    [PunRPC]
     public void Initialize(Player player)
     {
         photonPlayer = player;

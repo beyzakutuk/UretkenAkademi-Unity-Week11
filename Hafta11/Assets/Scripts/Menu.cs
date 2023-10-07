@@ -65,11 +65,11 @@ public class Menu : MonoBehaviourPunCallbacks
     [PunRPC]
     public void updateLobbyUI()
     {
-        playerListText.text += "";
+        playerListText.text = " ";
 
         foreach(Player player in PhotonNetwork.PlayerList)
         {
-            playerListText.text += player.NickName + "/n";
+            playerListText.text += player.NickName + "\n";
         }
 
         if(PhotonNetwork.IsMasterClient)
@@ -95,7 +95,7 @@ public class Menu : MonoBehaviourPunCallbacks
 
     public void onStartGameButton()
     {
-        NetworkManager.instance.photonView.RPC("changeScene", RpcTarget.All, "Game");
+        NetworkManager.instance.photonView.RPC("ChangeScene", RpcTarget.All, "Game");
     }
 
     void Update()
